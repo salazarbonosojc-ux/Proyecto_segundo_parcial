@@ -1,22 +1,39 @@
-<div class="page-header">
-    <h2>Asignar e Instanciar Habitación</h2>
-    <a href="index.php?url=habitaciones" class="btn btn-secondary">Volver al listado</a>
-</div>
+<?php
+/** @var array $pacientes */
+/** @var array $habitaciones */
+$pacientes = $pacientes ?? [];
+$habitaciones = $habitaciones ?? [];
+?>
 <div class="form-container">
-    <form action="index.php?url=habitaciones/crear" method="POST">
+    <form action="index.php?url=habitaciones/guardar" method="POST">
+        
         <div class="form-group">
-            <label for="numero_habitacion">Número de Habitación:</label>
-            <input type="text" id="numero_habitacion" name="numero_habitacion" required>
-        </div>
-        <div class="form-group">
-            <label for="tipo">Tipo de Habitación:</label>
-            <select id="tipo" name="tipo" required>
-                <option value="General">General</option>
-                <option value="UCI">UCI</option>
-                <option value="Pediatría">Pediatría</option>
-                <option value="Maternidad">Maternidad</option>
+            <label for="id_paciente">Seleccionar Paciente:</label>
+            <select id="id_paciente" name="id_paciente" required>
+                <option value="">-- Seleccione un Paciente --</option>
+                <?php foreach ($pacientes as $paciente): ?>
+                    <option value="<?= $paciente['id']; ?>">
+                        <?= htmlspecialchars($paciente['cedula'] . ' - ' . $paciente['nombre'] . ' ' . $paciente['apellido']); ?>
+                    </option>
+                <?php endforeach; ?>
             </select>
         </div>
-        <button type="submit" class="btn btn-primary">Registrar Habitación</button>
+
+        <div class="form-group">
+            <label for="id_habitacion">Seleccionar Habitación Física Disponible:</label>
+            <select id="id_habitacion" name="id_habitacion" required>
+                <option value="">-- Seleccione la Habitación --</option>
+                <?php foreach ($habitaciones as $hab): ?>
+                    <option value="<?= $hab['id']; ?>">
+                        Nº <?= htmlspecialchars($hab['numero_habitacion'] . ' (' . $hab['tipo'] . ')'); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Confirmar Asignación</button>
+            <a href="index.php?url=ingresos" class="btn btn-secondary">Cancelar</a>
+        </div>
     </form>
 </div>

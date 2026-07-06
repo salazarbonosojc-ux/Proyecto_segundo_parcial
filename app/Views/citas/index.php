@@ -1,5 +1,4 @@
 <div class="page-header">
-    <h2>Control de Citas Médicas</h2>
     <a href="index.php?url=citas/crear" class="btn btn-primary">Agendar Nueva Cita</a>
 </div>
 
@@ -7,10 +6,11 @@
     <table>
         <thead>
             <tr>
-                <th>ID</th>
+                <th>ID Cita</th>
                 <th>Paciente</th>
                 <th>Médico</th>
                 <th>Fecha y Hora</th>
+                <th>Motivo</th>
                 <th>Estado</th>
                 <th>Acciones</th>
             </tr>
@@ -18,18 +18,24 @@
         <tbody>
             <?php if (empty($citas)): ?>
                 <tr>
-                    <td colspan="6" class="table-empty">No hay citas médicas agendadas.</td>
+                    <td colspan="7" class="text-center">No hay citas médicas programadas.</td>
                 </tr>
             <?php else: ?>
                 <?php foreach ($citas as $cita): ?>
                     <tr>
                         <td><?= $cita['id']; ?></td>
-                        <td><?= htmlspecialchars($cita['paciente']); ?></td>
-                        <td><?= htmlspecialchars($cita['medico']); ?></td>
+                        <td><?= htmlspecialchars($cita['paciente'] ?? 'Paciente ID: ' . $cita['id_paciente']); ?></td>
+                        <td><?= htmlspecialchars($cita['medico'] ?? 'Médico ID: ' . $cita['id_medico']); ?></td>
                         <td><?= $cita['fecha_hora']; ?></td>
-                        <td><?= htmlspecialchars($cita['estado']); ?></td>
+                        <td><?= htmlspecialchars($cita['motivo'] ?? 'No especificado'); ?></td>
                         <td>
-                            <a href="index.php?url=citas/editar&id=<?= $cita['id']; ?>" class="btn-action btn-edit">Editar</a>
+                            <span class="status-badge"><?= htmlspecialchars($cita['estado'] ?? 'Pendiente'); ?></span>
+                        </td>
+                        <td>
+                            <div class="actions-flex">
+                                <a href="index.php?url=citas/editar&id=<?= $cita['id']; ?>" class="btn-action btn-edit">Editar</a>
+                                <a href="index.php?url=citas/eliminar&id=<?= $cita['id']; ?>" class="btn-action btn-delete" onclick="return confirm('¿Está seguro de que desea cancelar permanentemente esta cita médica?')">Eliminar</a>
+                            </div>
                         </td>
                     </tr>
                 <?php endforeach; ?>

@@ -1,5 +1,4 @@
 <div class="page-header">
-    <h2>Gestión de Pacientes</h2>
     <a href="index.php?url=pacientes/crear" class="btn btn-primary">Registrar Nuevo Paciente</a>
 </div>
 
@@ -18,7 +17,7 @@
         <tbody>
             <?php if (empty($pacientes)): ?>
                 <tr>
-                    <td colspan="6" style="text-align: center;">No hay pacientes registrados.</td>
+                    <td colspan="6" class="text-center">No hay pacientes registrados.</td>
                 </tr>
             <?php else: ?>
                 <?php foreach ($pacientes as $paciente): ?>
@@ -29,8 +28,8 @@
                         <td><?= $paciente['fecha_nacimiento']; ?></td>
                         <td><?= htmlspecialchars($paciente['telefono'] ?? 'N/A'); ?></td>
                         <td>
-                            <a href="index.php?url=pacientes/editar&id=<?= $paciente['id']; ?>" class="btn-action btn-edit" style="background: #eab308; color: #fff; padding: 6px 12px; border-radius: 4px; text-decoration: none; font-size: 14px; margin-right: 5px;">Editar</a>
-                            <a href="index.php?url=pacientes/eliminar&id=<?= $paciente['id']; ?>" class="btn-action btn-delete" style="background: #ef4444; color: #fff; padding: 6px 12px; border-radius: 4px; text-decoration: none; font-size: 14px;" onclick="return confirm('¿Está seguro de que desea eliminar permanentemente a este paciente?')">Eliminar</a>
+                            <a href="index.php?url=pacientes/editar&id=<?= $paciente['id']; ?>" class="btn-action btn-edit">Editar</a>
+                            <a href="index.php?url=pacientes/eliminar&id=<?= $paciente['id']; ?>" class="btn-action btn-delete" onclick="return confirm('¿Está seguro de que desea eliminar permanentemente a este paciente?')">Eliminar</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

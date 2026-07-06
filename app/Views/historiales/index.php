@@ -1,36 +1,43 @@
+<?php
+/** @var array $historiales */
+$historiales = $historiales ?? [];
+?>
+
 <div class="page-header">
-    <h2>Historiales Clínicos</h2>
-    <a href="index.php?url=historiales/crear" class="btn btn-primary">Abrir Nuevo Historial</a>
+    <a href="index.php?url=historiales/crear" class="btn btn-primary">ABRIR NUEVO HISTORIAL</a>
 </div>
 
 <div class="table-container">
-    <table>
+    <table class="custom-table">
         <thead>
             <tr>
-                <th>ID Historial</th>
-                <th>Cédula Paciente</th>
-                <th>Paciente</th>
-                <th>Fecha Creación</th>
-                <th>Acciones</th>
+                <th>ID HISTORIAL</th>
+                <th>PACIENTE</th>
+                <th>FECHA DE APERTURA</th>
+                <th class="text-center">ACCIONES</th>
             </tr>
         </thead>
         <tbody>
-            <?php if (empty($historiales)): ?>
-                <tr>
-                    <td colspan="5" class="table-empty">No hay historiales clínicos abiertos.</td>
-                </tr>
-            <?php else: ?>
-                <?php foreach ($historiales as $hist): ?>
+            <?php if (!empty($historiales)): ?>
+                <?php foreach ($historiales as $historial): ?>
                     <tr>
-                        <td><?= $hist['id']; ?></td>
-                        <td><?= htmlspecialchars($hist['cedula']); ?></td>
-                        <td><?= htmlspecialchars($hist['paciente']); ?></td>
-                        <td><?= $hist['fecha_creacion']; ?></td>
-                        <td>
-                            <a href="index.php?url=historiales/ver&id=<?= $hist['id']; ?>" class="btn-action btn-edit" style="background: #06b6d4;">Ver</a>
+                        <td><?= htmlspecialchars($historial['id']); ?></td>
+                        <td><strong><?= htmlspecialchars($historial['paciente']); ?></strong></td>
+                        <td><?= htmlspecialchars($historial['fecha_creacion']); ?></td>
+                        <td class="text-center">
+                            <div class="actions-flex unique-actions-center">
+                            <a href="index.php?url=historiales/ver&id=<?= $historial['id']; ?>" class="btn-action btn-info">VER</a>
+                          <a href="index.php?url=historiales/editar&id=<?= $historial['id']; ?>" class="btn-action btn-edit">EDITAR</a>
+                         </div>
                         </td>
                     </tr>
                 <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="4" class="text-center">
+                        No existen historiales clínicos registrados en el sistema.
+                    </td>
+                </tr>
             <?php endif; ?>
         </tbody>
     </table>

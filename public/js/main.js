@@ -1,28 +1,42 @@
-// Esperar a que el DOM esté completamente cargado
-document.addEventListener("DOMContentLoaded", function () {
-    
-    // Capturar todos los botones de eliminación del sistema
-    const deleteButtons = document.querySelectorAll(".btn-delete");
-    
-    deleteButtons.forEach(function (button) {
-        button.addEventListener("click", function (event) {
-            // Detener el viaje del enlace temporalmente
-            const confirmar = confirm("¿Está completamente seguro de que desea eliminar permanentemente este registro?");
-            
-            if (!confirmar) {
-                event.preventDefault(); // Cancela la acción si el usuario le da a Cancelar
-            }
-        });
-    });
+// public/js/main.js
 
-    // Ejemplo: Validación rápida del formulario de edición/creación en el cliente
-    const hospitalForms = document.querySelectorAll("form");
-    hospitalForms.forEach(function (form) {
-        form.addEventListener("submit", function () {
-            const submitBtn = form.querySelector("button[type='submit']");
-            if (submitBtn) {
-                submitBtn.disabled = true;
-                submitBtn.innerText = "Procesando...";
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("Hospital Core JS - Sistema de Validaciones Activo");
+
+    // 1. Capturar todos los formularios del proyecto de manera dinámica
+    const formularios = document.querySelectorAll('form');
+
+    formularios.forEach(form => {
+        form.addEventListener('submit', (e) => {
+            let inputsObligatorios = form.querySelectorAll('input[required], select[required]');
+            let formularioValido = true;
+
+            // Limpiar alertas previas dentro del contenedor del formulario
+            const alertaPrevia = form.querySelector('.alert-error');
+            if (alertaPrevia) alertaPrevia.remove();
+
+            // 2. Validar campos vacíos o con puros espacios en blanco
+            inputsObligatorios.forEach(input => {
+                if (input.value.trim() === '') {
+                    formularioValido = false;
+                    input.classList.add('input-error'); // Opcional por si deseas estilizar el borde en rojo
+                } else {
+                    input.classList.remove('input-error');
+                }
+            });
+
+            // 3. Detener el envío si la validación falla
+            if (!formularioValido) {
+                e.preventDefault();
+                
+                // Crear dinámicamente un contenedor de alerta consistente con tu CSS
+                const alerta = document.createElement('div');
+                alerta.className = 'alert-error';
+                alerta.innerText = 'Error: Por favor, no envíe campos vacíos o con puros espacios.';
+                
+                // Insertar al principio del formulario
+                form.insertBefore(alerta, form.firstChild);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         });
     });

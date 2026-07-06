@@ -8,40 +8,69 @@
 </head>
 <body>
     <?php 
-    // Guardrail para evitar el error de strpos si $url es null
-    $current_url = isset($url) ? $url : ''; 
+    $url_navegador = isset($_GET['url']) ? trim($_GET['url']) : ''; 
+
+    $pageTitle = 'Panel Principal';
+    if (preg_match('/paciente/i', $url_navegador)) {
+        $pageTitle = 'Gestión de Pacientes';
+    } elseif (preg_match('/medico/i', $url_navegador)) {
+        $pageTitle = 'Gestión de Médicos';
+    } elseif (preg_match('/cita/i', $url_navegador)) {
+        $pageTitle = 'Citas Médicas';
+    } elseif (preg_match('/historial/i', $url_navegador)) {
+        $pageTitle = 'Historiales Clínicos';
+    } elseif (preg_match('/habitacion/i', $url_navegador)) {
+        $pageTitle = 'Estado de Habitaciones';
+    } elseif (preg_match('/ingreso/i', $url_navegador)) {
+        $pageTitle = 'Habitaciones Asignadas';
+    }
     ?>
     <div class="dashboard-container">
         <aside class="sidebar">
-            <div class="sidebar-brand">
-                <h3>Hospital Core</h3>
+            <div class="sidebar-top-group">
+                <div class="sidebar-brand">
+                    <h3 class="neon-text">Hospital Core</h3>
+                </div>
+                <nav class="sidebar-menu">
+                    <ul>
+                        <li>
+                            <a href="index.php?url=pacientes" class="<?= preg_match('/paciente/i', $url_navegador) ? 'active' : ''; ?>">Pacientes</a>
+                        </li>
+                        <li>
+                            <a href="index.php?url=medicos" class="<?= preg_match('/medico/i', $url_navegador) ? 'active' : ''; ?>">Médicos</a>
+                        </li>
+                        <li>
+                            <a href="index.php?url=citas" class="<?= preg_match('/cita/i', $url_navegador) ? 'active' : ''; ?>">Citas Médicas</a>
+                        </li>
+                        <li>
+                            <a href="index.php?url=historiales" class="<?= preg_match('/historial/i', $url_navegador) ? 'active' : ''; ?>">Historiales</a>
+                        </li>
+                        <li>
+                            <a href="index.php?url=habitaciones" class="<?= preg_match('/habitacion/i', $url_navegador) ? 'active' : ''; ?>">Habitaciones</a>
+                        </li>
+                        <li>
+                            <a href="index.php?url=ingresos" class="<?= preg_match('/ingreso/i', $url_navegador) ? 'active' : ''; ?>">Asignaciones</a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
-            <nav class="sidebar-menu">
-                <ul>
-                    <li>
-                        <a href="index.php?url=pacientes" class="<?= (strpos($current_url, 'pacientes') === 0) ? 'active' : ''; ?>">Pacientes</a>
-                    </li>
-                    <li>
-                        <a href="index.php?url=medicos" class="<?= ($current_url === 'medicos') ? 'active' : ''; ?>">Médicos</a>
-                    </li>
-                    <li>
-                        <a href="index.php?url=citas" class="<?= ($current_url === 'citas') ? 'active' : ''; ?>">Citas Médicas</a>
-                    </li>
-                    <li>
-                        <a href="index.php?url=historiales" class="<?= ($current_url === 'historiales') ? 'active' : ''; ?>">Historiales</a>
-                    </li>
-                    <li>
-                        <a href="index.php?url=habitaciones" class="<?= ($current_url === 'habitaciones') ? 'active' : ''; ?>">Habitaciones</a>
-                    </li>
-                    <li class="logout-item">
-                        <a href="index.php?url=auth/logout">Cerrar Sesión</a>
-                    </li>
-                </ul>
-            </nav>
+            
+            <div class="sidebar-bottom-group">
+                <nav class="sidebar-menu">
+                    <ul>
+                        <li class="logout-item">
+                            <a href="index.php?url=auth/logout">Cerrar Sesión</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </aside>
 
         <main class="main-content">
             <header class="main-header">
+                <div class="header-title">
+                    <h2><?= $pageTitle; ?></h2>
+                </div>
                 <div class="user-info">
                     <span>Bienvenido, <strong><?= htmlspecialchars($_SESSION['usuario'] ?? 'Usuario'); ?></strong> (<?= htmlspecialchars($_SESSION['rol'] ?? 'Rol'); ?>)</span>
                 </div>

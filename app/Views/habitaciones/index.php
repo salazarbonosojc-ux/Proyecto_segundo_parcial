@@ -1,5 +1,4 @@
 <div class="page-header">
-    <h2>Estado de Habitaciones</h2>
     <a href="index.php?url=habitaciones/crear" class="btn btn-primary">Asignar Habitación</a>
 </div>
 
