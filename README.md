@@ -25,6 +25,9 @@ Para evaluar el sistema de control de sesiones y roles configurado en el login, 
   - `admin` (Rol: Administrador)
   - `salazar_yeancarlos` (Rol: Administrador)
   - `icaza_diana` (Rol: Administrador)
+  - `jama_joao` (Rol: Administrador)
+  - `sabando_angello` (Rol: Administrador)
+  - `wanke_carl` (Rol: Administrador)
 
 ## 🛠️ Requisitos de Instalación Locales
 1. Descargar e instalar [XAMPP](https://www.apachefriends.org/) (Soporte para PHP 8.x y MySQL).
