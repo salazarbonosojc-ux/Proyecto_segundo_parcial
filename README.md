@@ -13,6 +13,8 @@ Aplicación web dinámica desarrollada bajo la arquitectura **MVC (Modelo-Vista-
 ## 🚀 Características Técnicas y Reglas de Negocio
 - **Arquitectura Limpia**: Separación lógica estricta mediante el patrón MVC.
 - **Operaciones CRUD Completas**: Gestión funcional en todas las entidades maestros y relacionales.
+- **Módulo de Historial Clínico Interactivo (Nuevo)**: Se implementó la capacidad de registrar consultas médicas en tiempo real directamente desde la ficha clínica, vinculando médicos tratantes, fechas de consulta, días de reposo, diagnósticos clínicos y recetas médicas detalladas de forma centralizada.
+- **Visualización Detallada y Correo Electrónico (Nuevo)**: Incorporación del correo electrónico tanto en el listado maestro de pacientes como en el detalle del historial clínico. Asimismo, se expone y visualiza de forma clara la columna "Reposo (Días)" asociada a cada diagnóstico.
 - **Sincronización Automatizada Relacional (Tiempo Real)**: El módulo de habitaciones cuenta con lógica transaccional integrada. Al asignar un paciente a una cama, la habitación conmuta su estado a **Ocupada** y levanta un registro de asignación. Si el administrador edita una habitación física y conmuta manualmente su estado de vuelta a **Disponible**, el backend detecta este evento de alta y ejecuta una eliminación física (`DELETE`) del registro en la tabla matricial `ingresos_hospitalarios`, manteniendo las tablas coordinadas al instante y libres de inconsistencias.
 - **Interfaz Profesional**: Tema visual oscuro con efectos neón celeste y simetría geométrica en botoneras operativas (*glassmorphism*), 100% libre de estilos embebidos (*inline*) y con persistencia de estado activa en la barra de navegación lateral utilizando variables globales del servidor.
 - **Validaciones Avanzadas Bi-direccionales**: Protección contra campos vacíos o inconsistencias tanto en el cliente (JavaScript/HTML5) como en el servidor mediante sanitización estricta (`trim()` y `htmlspecialchars()`) contra ataques XSS.
@@ -39,7 +41,7 @@ Para evaluar el sistema de control de sesiones y roles configurado en el login, 
 * 3. Iniciar los módulos de Apache y MySQL desde el Panel de Control de XAMPP.
 * 4. Entrar a tu gestor de base de datos desde el navegador web: http://localhost/*phpmyadmin.
 * 5. Crear una nueva base de datos llamada exactamente: sistema_hospitalario.
-* 6. Seleccionar la base de datos recién creada, ir a la pestaña Importar, seleccionar el archivo database.sql ubicado dentro de la carpeta app/database/ de este proyecto y hacer clic en Importar.
+* 6. Seleccionar la base de datos recién creada, ir a la pestaña Importar, seleccionar el archivo database.sql ubicado dentro de la carpeta database/ de este proyecto y hacer clic en Importar.
 * 7. Abrir tu navegador web preferido y acceder a la dirección de ejecución del entorno:
 http://localhost/Proyecto_segundo_parcial/public/index.php
 
@@ -49,7 +51,7 @@ http://localhost/Proyecto_segundo_parcial/public/index.php
 - **/app/Models:** Clases dedicadas a la lógica de negocio y mapeo de consultas SQL utilizando la API nativa PDO de PHP.
 - **/app/Views:** Plantillas visuales fragmentadas por módulos funcionales e inyectadas dinámicamente dentro del Layout maestro compartido.
 - **/app/config:** Configuraciones de red del servidor y conector estructural de la base de datos.
-- **/app/database/database.sql:** Script maestro de respaldo para la creación y población masiva de datos de la clínica.
+- **/database/database.sql:** Script maestro de respaldo para la creación y población masiva de datos de la clínica.
 
 ## 👥 Desarrolladores
 * Salazar Bonoso Yeancarlos Isaac -> Usuario: salazar_yeancarlos

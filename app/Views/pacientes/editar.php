@@ -35,6 +35,11 @@
             <input type="text" id="telefono" name="telefono" value="<?= htmlspecialchars($paciente['telefono'] ?? ''); ?>">
         </div>
 
+        <div class="form-group">
+            <label for="email">Correo Electrónico:</label>
+            <input type="email" id="email" name="email" value="<?= htmlspecialchars($paciente['email'] ?? ''); ?>">
+        </div>
+
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">Actualizar Cambios</button>
         </div>

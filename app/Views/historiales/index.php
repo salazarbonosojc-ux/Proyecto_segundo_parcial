@@ -3,10 +3,6 @@
 $historiales = $historiales ?? [];
 ?>
 
-<div class="page-header">
-    <a href="index.php?url=historiales/crear" class="btn btn-primary">ABRIR NUEVO HISTORIAL</a>
-</div>
-
 <div class="table-container">
     <table class="custom-table">
         <thead>
@@ -26,9 +22,8 @@ $historiales = $historiales ?? [];
                         <td><?= htmlspecialchars($historial['fecha_creacion']); ?></td>
                         <td class="text-center">
                             <div class="actions-flex unique-actions-center">
-                            <a href="index.php?url=historiales/ver&id=<?= $historial['id']; ?>" class="btn-action btn-info">VER</a>
-                          <a href="index.php?url=historiales/editar&id=<?= $historial['id']; ?>" class="btn-action btn-edit">EDITAR</a>
-                         </div>
+                                <a href="index.php?url=historiales/ver&id=<?= $historial['id']; ?>" class="btn-action btn-info">VER</a>
+                            </div>
                         </td>
                     </tr>
                 <?php endforeach; ?>

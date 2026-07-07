@@ -14,6 +14,18 @@ $error = $error ?? null;
 
     <form action="index.php?url=medicos/editar&id=<?= $medico['id']; ?>" method="POST">
         <div class="form-group">
+            <label for="id_especialidad">Especialidad:</label>
+            <select id="id_especialidad" name="id_especialidad" required>
+                <option value="">-- Seleccionar Especialidad --</option>
+                <?php foreach ($especialidades as $esp): ?>
+                    <option value="<?= $esp['id']; ?>" <?= isset($medico['id_especialidad']) && $medico['id_especialidad'] == $esp['id'] ? 'selected' : ''; ?>>
+                        <?= htmlspecialchars($esp['nombre']); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+
+        <div class="form-group">
             <label for="licencia_medica">Licencia Médica:</label>
             <input type="text" id="licencia_medica" name="licencia_medica" value="<?= htmlspecialchars($medico['licencia_medica']); ?>" required>
         </div>

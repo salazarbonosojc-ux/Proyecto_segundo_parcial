@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../models/Paciente.php';
+require_once __DIR__ . '/../Models/Paciente.php';
 
 class PacienteController {
     private $pacienteModel;
@@ -11,8 +11,8 @@ class PacienteController {
     public function index() {
         $url = 'pacientes';
         $pacientes = $this->pacienteModel->listar();
-        $viewContent = __DIR__ . '/../views/pacientes/index.php';
-        require_once __DIR__ . '/../views/shared/layout.php';
+        $viewContent = __DIR__ . '/../Views/pacientes/index.php';
+        require_once __DIR__ . '/../Views/shared/layout.php';
     }
 
     public function crear() {
@@ -25,6 +25,7 @@ class PacienteController {
             $apellido = trim(filter_input(INPUT_POST, 'apellido', FILTER_SANITIZE_SPECIAL_CHARS));
             $fecha_nacimiento = trim($_POST['fecha_nacimiento']);
             $telefono = trim(filter_input(INPUT_POST, 'telefono', FILTER_SANITIZE_SPECIAL_CHARS));
+            $email = trim(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL));
 
             if (empty($cedula) || empty($nombre) || empty($apellido) || empty($fecha_nacimiento)) {
                 $error = "Todos los campos obligatorios deben ser llenados.";
@@ -33,7 +34,7 @@ class PacienteController {
             } elseif ($this->pacienteModel->existeCedula($cedula)) {
                 $error = "Esta cédula ya se encuentra registrada.";
             } else {
-                if ($this->pacienteModel->crear($cedula, $nombre, $apellido, $fecha_nacimiento, $telefono)) {
+                if ($this->pacienteModel->crear($cedula, $nombre, $apellido, $fecha_nacimiento, $telefono, $email)) {
                     header('Location: index.php?url=pacientes');
                     exit();
                 } else {
@@ -42,8 +43,8 @@ class PacienteController {
             }
         }
 
-        $viewContent = __DIR__ . '/../views/pacientes/crear.php';
-        require_once __DIR__ . '/../views/shared/layout.php';
+        $viewContent = __DIR__ . '/../Views/pacientes/crear.php';
+        require_once __DIR__ . '/../Views/shared/layout.php';
     }
 
     public function editar() {
@@ -63,6 +64,7 @@ class PacienteController {
             $apellido = trim(filter_input(INPUT_POST, 'apellido', FILTER_SANITIZE_SPECIAL_CHARS));
             $fecha_nacimiento = trim($_POST['fecha_nacimiento']);
             $telefono = trim(filter_input(INPUT_POST, 'telefono', FILTER_SANITIZE_SPECIAL_CHARS));
+            $email = trim(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL));
 
             if (empty($cedula) || empty($nombre) || empty($apellido) || empty($fecha_nacimiento)) {
                 $error = "Todos los campos obligatorios deben ser llenados.";
@@ -71,7 +73,7 @@ class PacienteController {
             } elseif ($this->pacienteModel->existeCedula($cedula, $id)) {
                 $error = "Esta cédula ya pertenece a otro paciente registrado.";
             } else {
-                if ($this->pacienteModel->actualizar($id, $cedula, $nombre, $apellido, $fecha_nacimiento, $telefono)) {
+                if ($this->pacienteModel->actualizar($id, $cedula, $nombre, $apellido, $fecha_nacimiento, $telefono, $email)) {
                     header('Location: index.php?url=pacientes');
                     exit();
                 } else {
@@ -80,8 +82,8 @@ class PacienteController {
             }
         }
 
-        $viewContent = __DIR__ . '/../views/pacientes/editar.php';
-        require_once __DIR__ . '/../views/shared/layout.php';
+        $viewContent = __DIR__ . '/../Views/pacientes/editar.php';
+        require_once __DIR__ . '/../Views/shared/layout.php';
     }
 
     public function eliminar() {

@@ -21,9 +21,9 @@ class Paciente {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function crear($cedula, $nombre, $apellido, $fecha_nacimiento, $telefono) {
-        $query = "INSERT INTO pacientes (cedula, nombre, apellido, fecha_nacimiento, telefono) 
-                  VALUES (:cedula, :nombre, :apellido, :fecha_nacimiento, :telefono)";
+    public function crear($cedula, $nombre, $apellido, $fecha_nacimiento, $telefono, $email = '') {
+        $query = "INSERT INTO pacientes (cedula, nombre, apellido, fecha_nacimiento, telefono, email) 
+                  VALUES (:cedula, :nombre, :apellido, :fecha_nacimiento, :telefono, :email)";
         $stmt = $this->db->prepare($query);
         
         $stmt->bindParam(':cedula', $cedula);
@@ -31,13 +31,14 @@ class Paciente {
         $stmt->bindParam(':apellido', $apellido);
         $stmt->bindParam(':fecha_nacimiento', $fecha_nacimiento);
         $stmt->bindParam(':telefono', $telefono);
+        $stmt->bindParam(':email', $email);
 
         return $stmt->execute();
     }
 
-    public function actualizar($id, $cedula, $nombre, $apellido, $fecha_nacimiento, $telefono) {
+    public function actualizar($id, $cedula, $nombre, $apellido, $fecha_nacimiento, $telefono, $email = '') {
         $query = "UPDATE pacientes 
-                  SET cedula = :cedula, nombre = :nombre, apellido = :apellido, fecha_nacimiento = :fecha_nacimiento, telefono = :telefono 
+                  SET cedula = :cedula, nombre = :nombre, apellido = :apellido, fecha_nacimiento = :fecha_nacimiento, telefono = :telefono, email = :email 
                   WHERE id = :id";
         $stmt = $this->db->prepare($query);
         
@@ -47,6 +48,7 @@ class Paciente {
         $stmt->bindParam(':apellido', $apellido);
         $stmt->bindParam(':fecha_nacimiento', $fecha_nacimiento);
         $stmt->bindParam(':telefono', $telefono);
+        $stmt->bindParam(':email', $email);
 
         return $stmt->execute();
     }

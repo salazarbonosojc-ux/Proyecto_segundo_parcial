@@ -8,7 +8,8 @@ require_once __DIR__ . '/../app/config/Database.php';
 $url = isset($_GET['url']) ? rtrim($_GET['url'], '/') : 'login';
 
 // Guardrail de Seguridad: Si no hay sesión activa y no va al login, se le fuerza a loguearse
-if (!isset($_SESSION['usuario']) && $url !== 'login' && $url !== 'auth/login') {
+// Excepto para rutas de PDF que requieren estar autenticado
+if (!isset($_SESSION['usuario']) && $url !== 'login' && $url !== 'auth/login' && strpos($url, 'pdf') === false) {
     header('Location: index.php?url=login');
     exit();
 }

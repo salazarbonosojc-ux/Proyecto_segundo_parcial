@@ -11,13 +11,14 @@
                 <th>Nombre Completo</th>
                 <th>Fecha Nacimiento</th>
                 <th>Teléfono</th>
+                <th>Correo Electrónico</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
             <?php if (empty($pacientes)): ?>
                 <tr>
-                    <td colspan="6" class="text-center">No hay pacientes registrados.</td>
+                    <td colspan="7" class="text-center">No hay pacientes registrados.</td>
                 </tr>
             <?php else: ?>
                 <?php foreach ($pacientes as $paciente): ?>
@@ -27,6 +28,7 @@
                         <td><?= htmlspecialchars($paciente['nombre'] . ' ' . $paciente['apellido']); ?></td>
                         <td><?= $paciente['fecha_nacimiento']; ?></td>
                         <td><?= htmlspecialchars($paciente['telefono'] ?? 'N/A'); ?></td>
+                        <td><?= htmlspecialchars($paciente['email'] ?? 'N/A'); ?></td>
                         <td>
                             <a href="index.php?url=pacientes/editar&id=<?= $paciente['id']; ?>" class="btn-action btn-edit">Editar</a>
                             <a href="index.php?url=pacientes/eliminar&id=<?= $paciente['id']; ?>" class="btn-action btn-delete" onclick="return confirm('¿Está seguro de que desea eliminar permanentemente a este paciente?')">Eliminar</a>

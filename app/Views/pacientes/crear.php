@@ -35,6 +35,11 @@
             <input type="text" id="telefono" name="telefono">
         </div>
 
+        <div class="form-group">
+            <label for="email">Correo Electrónico:</label>
+            <input type="email" id="email" name="email">
+        </div>
+
         <button type="submit" class="btn btn-primary">Guardar Paciente</button>
     </form>
 </div>
