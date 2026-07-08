@@ -96,11 +96,15 @@ class HabitacionController {
                         ':id'                => $id
                     ]);
 
-                    // 2. AUTOMATIZACIÓN: Si pasa a Disponible, se ELIMINA el registro de asignación automáticamente
+                    // 2. AUTOMATIZACIÓN: Si pasa a Disponible, se registra la fecha de alta automáticamente
                     if ($estado === 'Disponible') {
-                        $deleteQuery = "DELETE FROM ingresos_hospitalarios WHERE id_habitacion = :id_habitacion";
-                        $deleteStmt = $this->db->prepare($deleteQuery);
-                        $deleteStmt->execute([':id_habitacion' => $id]);
+                        $fecha_alta = date('Y-m-d H:i:s');
+                        $updateQuery = "UPDATE ingresos_hospitalarios SET fecha_alta = :fecha_alta WHERE id_habitacion = :id_habitacion AND fecha_alta IS NULL";
+                        $updateStmt = $this->db->prepare($updateQuery);
+                        $updateStmt->execute([
+                            ':fecha_alta'    => $fecha_alta,
+                            ':id_habitacion' => $id
+                        ]);
                     }
 
                     $this->db->commit();

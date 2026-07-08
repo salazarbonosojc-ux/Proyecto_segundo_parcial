@@ -73,4 +73,47 @@ class IngresoController {
         header('Location: index.php?url=habitaciones');
         exit();
     }
+
+    /**
+     * Dar de Alta a un Paciente (Actualiza fecha_alta y libera habitación)
+     */
+    public function darAlta() {
+        $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+
+        if ($id > 0) {
+            try {
+                $this->db->beginTransaction();
+
+                // 1. Obtener la habitación asociada a este ingreso
+                $stmtIngreso = $this->db->prepare("SELECT id_habitacion FROM ingresos_hospitalarios WHERE id = :id");
+                $stmtIngreso->execute([':id' => $id]);
+                $ingreso = $stmtIngreso->fetch(PDO::FETCH_ASSOC);
+
+                if ($ingreso) {
+                    $id_habitacion = $ingreso['id_habitacion'];
+                    $fecha_alta = date('Y-m-d H:i:s');
+
+                    // 2. Registrar fecha de alta en la asignación
+                    $updateIngreso = "UPDATE ingresos_hospitalarios SET fecha_alta = :fecha_alta WHERE id = :id";
+                    $stmtUpdate = $this->db->prepare($updateIngreso);
+                    $stmtUpdate->execute([
+                        ':fecha_alta' => $fecha_alta,
+                        ':id'         => $id
+                    ]);
+
+                    // 3. Cambiar estado de la habitación a 'Disponible'
+                    $updateHab = "UPDATE habitaciones SET estado = 'Disponible' WHERE id = :id_habitacion";
+                    $stmtUpdateHab = $this->db->prepare($updateHab);
+                    $stmtUpdateHab->execute([':id_habitacion' => $id_habitacion]);
+                }
+
+                $this->db->commit();
+            } catch (PDOException $e) {
+                $this->db->rollBack();
+            }
+        }
+
+        header('Location: index.php?url=ingresos');
+        exit();
+    }
 }
