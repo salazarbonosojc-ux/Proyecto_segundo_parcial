@@ -5,7 +5,7 @@ RUN sed -ri -e 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-avail
 RUN sed -ri -e 's!/var/www/html!/var/www/html/public!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
 # Instalar y habilitar el driver PDO MySQL requerido para la base de datos
-RUN docker-php-ext-install pdo pdo_mysql
+RUN docker-php-ext-install pdo_mysql
 
 # Copiar los archivos del proyecto al directorio de trabajo del contenedor
 COPY . /var/www/html/
