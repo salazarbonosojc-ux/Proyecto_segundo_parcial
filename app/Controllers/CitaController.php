@@ -48,7 +48,7 @@ class CitaController {
             $stmtPacientes->execute();
             $pacientes = $stmtPacientes->fetchAll(PDO::FETCH_ASSOC);
 
-            $stmtMedicos = $this->db->prepare("SELECT id, nombre, apellido FROM medicos ORDER BY apellido ASC");
+            $stmtMedicos = $this->db->prepare("SELECT id, nombre, apellido, licencia_medica FROM medicos ORDER BY apellido ASC");
             $stmtMedicos->execute();
             $medicos = $stmtMedicos->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
@@ -149,7 +149,7 @@ class CitaController {
             $stmtPacientes->execute();
             $pacientes = $stmtPacientes->fetchAll(PDO::FETCH_ASSOC);
 
-            $stmtMedicos = $this->db->prepare("SELECT id, nombre, apellido FROM medicos ORDER BY apellido ASC");
+            $stmtMedicos = $this->db->prepare("SELECT id, nombre, apellido, licencia_medica FROM medicos ORDER BY apellido ASC");
             $stmtMedicos->execute();
             $medicos = $stmtMedicos->fetchAll(PDO::FETCH_ASSOC);
 
