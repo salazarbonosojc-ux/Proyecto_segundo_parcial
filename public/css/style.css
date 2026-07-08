@@ -350,7 +350,7 @@ input[readonly] {
         linear-gradient(rgba(10, 15, 30, 0.08), rgba(10, 15, 30, 0.18)),
         url('../login_bg.png');
     background-size: cover;
-    background-position: center;
+    background-position: left center;
     background-repeat: no-repeat;
     margin: 0;
     padding: 0;
