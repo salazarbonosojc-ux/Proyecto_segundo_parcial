@@ -10,12 +10,6 @@
  * 3. Sabando Varela Angello Michael  -> Usuario: 'sabando_angello'
  * 4. Wanke Cedeño Carl Hermann       -> Usuario: 'wanke_carl'
  * 5. Icaza Lino Diana Valentina      -> Usuario: 'icaza_diana'
- * * 🥼 CUENTAS DE MÉDICOS DE PRUEBA:
- * 1. Dr. Carlos Andrade  -> Usuario: 'andrade_carlos'
- * 2. Dra. María Cevallos -> Usuario: 'cevallos_maria'
- * 3. Dr. Jorge Mendoza   -> Usuario: 'mendoza_jorge'
- * 4. Dra. Ana Guerrero   -> Usuario: 'guerrero_ana'
- * 5. Dr. Luis Palacios   -> Usuario: 'palacios_luis'
  * ==========================================================================
  */
 ?>
@@ -25,6 +19,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hospital Core - Login</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="login-body">
