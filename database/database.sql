@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS sistema_hospitalario;
-USE sistema_hospitalario;
+-- CREATE DATABASE IF NOT EXISTS sistema_hospitalario;
+-- USE sistema_hospitalario;
 
 /* ==========================================================================
    1. ESTRUCTURA DE TABLAS (ORGANIZADA POR INTEGRANTES)
