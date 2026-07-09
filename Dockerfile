@@ -1,14 +1,21 @@
-FROM php:8.2-apache
+FROM php:8.1-apache
 
-# Cambiar el DocumentRoot de Apache a la carpeta /public para mayor seguridad y URL limpia
-RUN sed -ri -e 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/*.conf
-RUN sed -ri -e 's!/var/www/html!/var/www/html/public!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+# Habilitar mod_rewrite de Apache para redirecciones
+RUN a2enmod rewrite
 
-# Instalar y habilitar el driver PDO MySQL requerido para la base de datos
-RUN docker-php-ext-install pdo_mysql
+# Instalar extensión PDO MySQL para la conexión con Clever Cloud
+RUN docker-php-ext-install pdo pdo_mysql
 
-# Copiar los archivos del proyecto al directorio de trabajo del contenedor
+# Redirigir el DocumentRoot de Apache a la carpeta 'public' del proyecto
+ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+
+# Copiar el código fuente del proyecto al contenedor
 COPY . /var/www/html/
 
-# Exponer el puerto estándar HTTP
+# Configurar permisos adecuados para el servidor web
+RUN chown -R www-data:www-data /var/www/html
+
+# Exponer el puerto 80 estándar
 EXPOSE 80
