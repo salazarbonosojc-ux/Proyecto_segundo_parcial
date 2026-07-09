@@ -765,10 +765,17 @@ input:-webkit-autofill:active {
     }
 }
 
-/* Responsividad para ajustar el alineamiento del login en pantallas menores a 900px */
-@media (max-width: 900px) {
+/* Responsividad para adaptar la imagen de fondo y el formulario en Tablets y Móviles (Menores a 1024px) */
+@media (max-width: 1024px) {
+    .login-body {
+        background-image: 
+            linear-gradient(rgba(10, 15, 30, 0.72), rgba(10, 15, 30, 0.82)), /* Atenuamos el fondo en pantallas pequeñas para que el texto de la imagen no interfiera con el formulario */
+            url('../login_bg.png');
+        background-position: 32% center; /* Centramos el enfoque en el lobby médico de fondo */
+    }
+    
     .login-wrapper {
-        justify-content: center !important;
+        justify-content: center !important; /* Centra la tarjeta de acceso en móviles y tabletas */
         padding: 20px !important;
     }
 }
